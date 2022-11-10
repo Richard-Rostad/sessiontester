@@ -1,17 +1,17 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from flask import Flask
-from flask import jsonify
-from apispec.ext.marshmallow import MarshmallowPlugin
-from apispec_webframeworks.flask import FlaskPlugin
-from api.utils.database import db
-from api.utils.responses import response_with
 import api.utils.responses as resp
+from api.config.config import (DevelopmentConfig, ProductionConfig,
+                               TestingConfig)
 from api.routes.authors import author_routes
 from api.routes.books import book_routes
 from api.routes.users import user_routes
+from api.utils.database import db
+from api.utils.responses import response_with
+from apispec.ext.marshmallow import MarshmallowPlugin
+from apispec_webframeworks.flask import FlaskPlugin
+from flask import Flask, jsonify
 from flask_jwt_extended import JWTManager
-from api.config.config import DevelopmentConfig, ProductionConfig, TestingConfig
 
 app = Flask(__name__)
 
