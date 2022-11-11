@@ -1,6 +1,25 @@
 version: '3.4'
 
 services:
+  db:
+    image: mysql/mysql-server:8.0
+    environment:
+      MYSQL_DATABASE: 'sessiondb'
+      MYSQL_USER: 'sessions'
+      MYSQL_PASSWORD: 'sessions'
+    volumes:
+      - ./database/docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    command: ["mysqld", "--default-authentication-plugin=mysql_native_password"]
+
+
+
+
+
+
   sessiontester:
     image: sessiontester
     build:

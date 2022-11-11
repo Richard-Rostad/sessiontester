@@ -1,5 +1,5 @@
 import os
-
+import logging
 import api.utils.responses as resp
 from api.config.config import (DevelopmentConfig, ProductionConfig,
                                TestingConfig)
@@ -60,4 +60,5 @@ with app.app_context():
     db.create_all()
     
 if __name__ == "__main__":
-    app.run(port=5000, host="0.0.0.0", use_reloader=False)
+    logging.info("got to here")
+    app.run(port=7777, host="0.0.0.0", use_reloader=False)
