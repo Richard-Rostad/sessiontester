@@ -1,17 +1,15 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
+import os
+
 import api.utils.responses as resp
 from api.config.config import (DevelopmentConfig, ProductionConfig,
                                TestingConfig)
-from api.routes.authors import author_routes
-from api.routes.books import book_routes
-from api.routes.users import user_routes
+from api.routes.sessions import session_routes
 from api.utils.database import db
 from api.utils.responses import response_with
+from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
 from apispec_webframeworks.flask import FlaskPlugin
 from flask import Flask, jsonify
-from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
 
@@ -28,9 +26,8 @@ app.config.from_object(app_config)
 db.init_app(app)
 with app.app_context():
     db.create_all()
-app.register_blueprint(author_routes, url_prefix='/api/authors')
-app.register_blueprint(book_routes, url_prefix='/api/books')
-app.register_blueprint(user_routes, url_prefix='/api/users')
+app.register_blueprint(session_routes, url_prefix='/api/sessions')
+
 
 
 # START GLOBAL HTTP CONFIGURATIONS
@@ -56,7 +53,7 @@ def not_found(e):
 # END GLOBAL HTTP CONFIGURATIONS
 
 
-jwt = JWTManager(app)
+#jwt = JWTManager(app)
 db.init_app(app)
 with app.app_context():
     # from api.models import *

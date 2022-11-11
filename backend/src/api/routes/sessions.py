@@ -7,72 +7,67 @@ from api.utils.responses import response_with
 from api.utils import responses as resp
 from api.models.sessions import Session,SessionSchema
 from api.utils.database import db
-from flask_jwt_extended import (jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
 
-book_routes = Blueprint("book_routes", __name__)
+session_routes = Blueprint("session_routes", __name__)
 
 
-@book_routes.route('/', methods=['POST'])
-@jwt_required
-def create_book():
+@session_routes.route('/', methods=['POST'])
+def create_session():
     try:
         data = request.get_json()
-        book_schema = BookSchema()
-        book, error = book_schema.load(data)
-        result = book_schema.dump(book.create()).data
-        return response_with(resp.SUCCESS_201, value={"book": result})
+        session_schema = SessionSchema()
+        session, error = SessionSchema.load(data)
+        result = session_schema.dump(session.create()).data
+        return response_with(resp.SUCCESS_201, value={"session": result})
     except Exception as e:
-        print e
+        print (e)
         return response_with(resp.INVALID_INPUT_422)
 
 
-@book_routes.route('/', methods=['GET'])
-def get_book_list():
-    fetched = Book.query.all()
-    book_schema = BookSchema(many=True, only=['author_id','title', 'year'])
-    books, error = book_schema.dump(fetched)
-    return response_with(resp.SUCCESS_200, value={"books": books})
+@session_routes.route('/', methods=['GET'])
+def get_session_list():
+    fetched = Session.query.all()
+    session_schema = SessionSchema(many=True, only=['author_id','title', 'year'])
+    sessions, error = session_schema.dump(fetched)
+    return response_with(resp.SUCCESS_200, value={"sessions": sessions})
 
 
-@book_routes.route('/<int:id>', methods=['GET'])
-def get_book_detail(id):
-    fetched = Book.query.get_or_404(id)
-    book_schema = BookSchema()
-    books, error = book_schema.dump(fetched)
-    return response_with(resp.SUCCESS_200, value={"books": books})
+@session_routes.route('/<int:id>', methods=['GET'])
+def get_session_detail(id):
+    fetched = Session.query.get_or_404(id)
+    session_schema = SessionSchema()
+    sessions, error = session_schema.dump(fetched)
+    return response_with(resp.SUCCESS_200, value={"sessions": sessions})
 
-@book_routes.route('/<int:id>', methods=['PUT'])
-@jwt_required
-def update_book_detail(id):
+@session_routes.route('/<int:id>', methods=['PUT'])
+def update_session_detail(id):
     data = request.get_json()
-    get_book = Book.query.get_or_404(id)
-    get_book.title = data['title']
-    get_book.year = data['year']
-    db.session.add(get_book)
+    get_session = session.query.get_or_404(id)
+    get_session.title = data['title']
+    get_session.year = data['year']
+    db.session.add(get_session)
     db.session.commit()
-    book_schema = BookSchema()
-    book, error = book_schema.dump(get_book)
-    return response_with(resp.SUCCESS_200, value={"book": book})
+    session_schema = SessionSchema()
+    session, error = session_schema.dump(get_session)
+    return response_with(resp.SUCCESS_200, value={"session": session})
 
-@book_routes.route('/<int:id>', methods=['PATCH'])
-@jwt_required
-def modify_book_detail(id):
+@session_routes.route('/<int:id>', methods=['PATCH'])
+def modify_session_detail(id):
     data = request.get_json()
-    get_book = Book.query.get_or_404(id)
+    get_session = session.query.get_or_404(id)
     if data.get('title'):
-        get_book.title = data['title']
+        get_session.title = data['title']
     if data.get('year'):
-        get_book.year = data['year']
-    db.session.add(get_book)
+        get_session.year = data['year']
+    db.session.add(get_session)
     db.session.commit()
-    book_schema = BookSchema()
-    book, error = book_schema.dump(get_book)
-    return response_with(resp.SUCCESS_200, value={"book": book})
+    session_schema = SessionSchema()
+    session, error = session_schema.dump(get_session)
+    return response_with(resp.SUCCESS_200, value={"session": session})
 
-@book_routes.route('/<int:id>', methods=['DELETE'])
-@jwt_required
-def delete_book(id):
-    get_book = Book.query.get_or_404(id)
-    db.session.delete(get_book)
+@session_routes.route('/<int:id>', methods=['DELETE'])
+def delete_session(id):
+    get_session = Session.query.get_or_404(id)
+    db.session.delete(get_session)
     db.session.commit()
     return response_with(resp.SUCCESS_204)
