@@ -1,8 +1,10 @@
-import os
 import logging
+import os
+
 import api.utils.responses as resp
 from api.config.config import (DevelopmentConfig, ProductionConfig,
                                TestingConfig)
+
 from api.routes.sessions import session_routes
 from api.utils.database import db
 from api.utils.responses import response_with
@@ -60,5 +62,5 @@ with app.app_context():
     db.create_all()
     
 if __name__ == "__main__":
-    logging.info("got to here")
+    logging.info("got to here:wq")
     app.run(port=7777, host="0.0.0.0", use_reloader=False)

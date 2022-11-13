@@ -10,17 +10,21 @@ class Session(db.Model):
     tester = db.Column(db.String(32))
     duration = db.Column(db.Integer)
     completed = db.Column(db.Boolean)
-    content = db.Column(db.UnicodeText)
-    def __init__(self, title, tester,completed=False, content=None):
+    testlog = db.Column(db.UnicodeText)
+
+    def __init__(self, title, tester,duration=90 , completed=False, testlog=None):
         self.title = title
         self.tester = tester
+        self.duration = duration
         self.completed = completed
-        self.content = content
-        
+        self.testlog = testlog
+
     def create(self):
         db.session.add(self)
         db.session.commit()
         return self
+    
+
 class SessionSchema(SQLAlchemySchema):
     class Meta(SQLAlchemySchema.Meta):
         model = Session
@@ -28,6 +32,6 @@ class SessionSchema(SQLAlchemySchema):
     id = fields.Number(dump_only=True)
     title = fields.String(required=True)
     tester = fields.String(required=True)
-    completed = fields.Boolean()
+    completed = fields.Boolean(required=False)
     duration = fields.Integer()
-    content = fields.Raw()
+    testlog = fields.Raw()
