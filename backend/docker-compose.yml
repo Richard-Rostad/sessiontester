@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  sessiontester-backend:
+    image: sessiontester-backend
+    build:
+      context: backend
+      dockerfile: ./Dockerfile
+    ports:
+      - 7777:7777
+    expose:
+      - "7777"

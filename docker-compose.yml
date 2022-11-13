@@ -17,9 +17,6 @@ services:
 
 
 
-
-
-
   sessiontester:
     image: sessiontester
     build:
@@ -29,3 +26,17 @@ services:
       NODE_ENV: production
     ports:
       - 8080:8080
+      
+  sessiontester-backend:
+    image: sessiontester-backend
+    build:
+      context: backend
+      dockerfile: ./Dockerfile
+    ports:
+      - 7777:7777
+    expose:
+      - "7777"
+    depends_on:
+      db:
+        condition: service_healthy
+
