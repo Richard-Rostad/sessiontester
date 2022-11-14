@@ -3,14 +3,16 @@
     <div id="timer">
       <SessionTimer />
     </div>
-    <i>
-      <slot name="icon"></slot>
-    </i>
-    <div class="details">
+    <div>
       <h3>
-        <slot name="heading"></slot>
+        <br/>
+        {{testSession}}
+        <br/>
+        {{totalVuePackages}}  
       </h3>
-      <slot></slot>
+    </div>
+    <div>
+      <button @click="getsessions()">List Sessions</button>
     </div>
   </div>
 </template>
@@ -24,11 +26,16 @@ export default {
     SessionTimer
   },
   data: () => ({
-    testSession: "",
+    testSession: '',
+    totalVuePackages : '',
   }),
   methods: {
-    async getRequest(url) {
-      return URL.createObjectURL(await getHttp(url, "json"));
+
+    async getsessions() {
+      const response = await fetch("http://host.docker.internal:7777/api/sessions/");
+      const data = await response.json();
+      this.totalVuePackages = data;
+
     },
     async getSession(sessionid) {
       this.testsession = await this.getRequest(

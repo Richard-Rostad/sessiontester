@@ -1,9 +1,9 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import TestSession from '../components/testSession.vue';
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <TestSession />
   </main>
 </template>
