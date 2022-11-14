@@ -1,0 +1,145 @@
+{
+	"info": {
+		"_postman_id": "120e571c-abd2-4b14-8ded-ebea4842301b",
+		"name": "Sessiontester",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "555543"
+	},
+	"item": [
+		{
+			"name": "ListSessions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost://5000/api/",
+					"protocol": "localhost",
+					"host": [
+						"5000"
+					],
+					"path": [
+						"api",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addsession",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n       \"title\" : \"Yet Another Session\",\n       \"tester\" : \"Kristina\",\n       \"duration\": 30,\n       \"completed\": false,\n       \"testlog\":\"sample content\"\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:7777/api/sessions/",
+					"host": [
+						"localhost"
+					],
+					"port": "7777",
+					"path": [
+						"api",
+						"sessions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modify fail",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n       \"tester\" : \"Kristina\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:7777/api/sessions/2",
+					"host": [
+						"localhost"
+					],
+					"port": "7777",
+					"path": [
+						"api",
+						"sessions",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modify",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n       \"tester\" : \"Kristina\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:7777/api/sessions/2",
+					"host": [
+						"localhost"
+					],
+					"port": "7777",
+					"path": [
+						"api",
+						"sessions",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modify works",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n       \"title\" : \"Yet Another Session\",\n       \"tester\" : \"Kristina\",\n       \"duration\": 30,\n       \"completed\": false,\n       \"testlog\":\"sample content\"\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:7777/api/sessions/2",
+					"host": [
+						"localhost"
+					],
+					"port": "7777",
+					"path": [
+						"api",
+						"sessions",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
