@@ -1,5 +1,8 @@
 <template>
   <div class="item">
+    <div id="timer">
+      <SessionTimer />
+    </div>
     <i>
       <slot name="icon"></slot>
     </i>
@@ -14,8 +17,12 @@
 
 <script>
 import { getHttp } from "../http/fetchApi";
+import SessionTimer from "./SessionTimer.vue";
 
 export default {
+  components: {
+    SessionTimer
+  },
   data: () => ({
     testSession: "",
   }),
