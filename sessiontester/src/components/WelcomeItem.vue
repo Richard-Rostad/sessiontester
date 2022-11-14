@@ -12,6 +12,36 @@
   </div>
 </template>
 
+
+<script>
+import { getHttp } from '../http/fetchApi';
+
+export default {
+  data: () => ({
+    testSession: '',
+  }),
+  methods: {
+    async getRequest(url) {
+      return URL.createObjectURL(await getHttp(url, 'json'));
+    },
+    async getSession(sessionid) {
+      this.testsession = await
+        this.getRequest('http://localhost:7777/' & sessionid);   //todo:config production host host.docker.internal:7777
+    },
+    async updateSession() {
+      this.kittyImage = await
+        this.getImage('http://host.docker.internal:7777/');
+    },
+    async beforeMount() { //todo:get all sessions
+      await this.newCatImage();
+    },
+  }
+
+}
+
+</script>
+
+
 <style scoped>
 .item {
   margin-top: 2rem;
